@@ -1,0 +1,14 @@
+{
+  "success": {
+    "name": "Read a TypeScript book",
+    "is_done": false
+  },
+  "duplicate": {
+    "name": "Buy Ketchup",
+    "is_done": false
+  },
+  "required": {
+    "name": "",
+    "is_done": false
+  }
+}

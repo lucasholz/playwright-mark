@@ -2,13 +2,12 @@ import { expect, test } from '@playwright/test';
 import { TaskModel } from './fixtures/task.model';
 import { deleteTaskByHelper, postTask } from './support/helpers';
 import { TasksPage } from './support/pages/tasks';
+import data from './fixtures/tasks.json'
+
 
 test('must be able to register a new task', async ({ page, request }) => {
 
-  const task: TaskModel = {
-    name: 'Read a TypeScript book',
-    is_done: false
-  }
+  const task = data.success as TaskModel
 
   await deleteTaskByHelper(request, task.name)
 
@@ -23,11 +22,7 @@ test('must be able to register a new task', async ({ page, request }) => {
 });
 
 test('should not allow duplicate task', async ({ page, request }) => {
-
-  const task: TaskModel = {
-    name: 'Buy Ketchup',
-    is_done: false
-  }
+  const task = data.duplicate as TaskModel
 
   await deleteTaskByHelper(request, task.name)
   await postTask(request, task)
