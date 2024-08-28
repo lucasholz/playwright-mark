@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { TaskModel } from './fixtures/task.model';
 import { deleteTaskByHelper, postTask } from './support/helpers';
 import { TasksPage } from './support/pages/tasks';
@@ -40,3 +40,17 @@ test('should not allow duplicate task', async ({ page, request }) => {
 
   await page.waitForTimeout(1)
 });
+
+test('required field', async ({ page }) => {
+  const task = data.required as TaskModel
+
+  const tasksPage: TasksPage = new TasksPage(page)
+
+  await tasksPage.go()
+  await tasksPage.create(task)
+
+  const validationMessage = await tasksPage.inputTaskName.evaluate(e => (e as HTMLInputElement).validationMessage)
+  expect(validationMessage).toEqual('This is a required field')
+
+  await page.waitForTimeout(1)
+})
