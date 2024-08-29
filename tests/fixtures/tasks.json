@@ -10,5 +10,9 @@
   "required": {
     "name": "",
     "is_done": false
+  },
+  "update": {
+    "name": "Pay my credit card bill",
+    "is_done": false
   }
 }
