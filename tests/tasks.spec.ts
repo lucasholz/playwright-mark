@@ -69,3 +69,21 @@ test.describe('update', () => {
     await page.waitForTimeout(1)
   })
 });
+
+test.describe('delete', () => {
+
+  test.only('must delete a task', async ({ page, request }) => {
+    const task = data.delete as TaskModel
+
+    await deleteTaskByHelper(request, task.name)
+    await postTask(request, task)
+
+    const tasksPage: TasksPage = new TasksPage(page)
+
+    await tasksPage.go()
+    await tasksPage.remove(task.name)
+    await tasksPage.shouldNotExist(task.name)
+
+    await page.waitForTimeout(1)
+  })
+})

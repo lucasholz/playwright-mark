@@ -14,5 +14,9 @@
   "update": {
     "name": "Pay my credit card bill",
     "is_done": false
+  },
+  "delete": {
+    "name": "Study Ruby",
+    "is_done": false
   }
 }
