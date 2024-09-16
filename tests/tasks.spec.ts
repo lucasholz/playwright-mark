@@ -72,7 +72,7 @@ test.describe('update', () => {
 
 test.describe('delete', () => {
 
-  test.only('must delete a task', async ({ page, request }) => {
+  test('must delete a task', async ({ page, request }) => {
     const task = data.delete as TaskModel
 
     await deleteTaskByHelper(request, task.name)
