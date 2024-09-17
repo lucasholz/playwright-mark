@@ -4,6 +4,12 @@ import { deleteTaskByHelper, postTask } from './support/helpers';
 import { TasksPage } from './support/pages/tasks';
 import data from './fixtures/tasks.json'
 
+let tasksPage: TasksPage
+
+test.beforeEach(({ page }) => {
+  tasksPage = new TasksPage(page)
+})
+
 test.describe('required fields', () => {
 
   test('must be able to register a new task', async ({ page, request }) => {
@@ -11,8 +17,6 @@ test.describe('required fields', () => {
     const task = data.success as TaskModel
 
     await deleteTaskByHelper(request, task.name)
-
-    const tasksPage: TasksPage = new TasksPage(page)
 
     await tasksPage.go()
     await tasksPage.create(task)
@@ -28,8 +32,6 @@ test.describe('required fields', () => {
     await deleteTaskByHelper(request, task.name)
     await postTask(request, task)
 
-    const tasksPage: TasksPage = new TasksPage(page)
-
     await tasksPage.go()
     await tasksPage.create(task)
     await tasksPage.alertHaveText('Task already exists!')
@@ -39,8 +41,6 @@ test.describe('required fields', () => {
 
   test('required field', async ({ page }) => {
     const task = data.required as TaskModel
-
-    const tasksPage: TasksPage = new TasksPage(page)
 
     await tasksPage.go()
     await tasksPage.create(task)
@@ -60,8 +60,6 @@ test.describe('update', () => {
     await deleteTaskByHelper(request, task.name)
     await postTask(request, task)
 
-    const tasksPage: TasksPage = new TasksPage(page)
-
     await tasksPage.go()
     await tasksPage.toggle(task.name)
     await tasksPage.shouldBeDone(task.name)
@@ -77,8 +75,6 @@ test.describe('delete', () => {
 
     await deleteTaskByHelper(request, task.name)
     await postTask(request, task)
-
-    const tasksPage: TasksPage = new TasksPage(page)
 
     await tasksPage.go()
     await tasksPage.remove(task.name)
